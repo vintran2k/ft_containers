@@ -6,28 +6,29 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 21:12:30 by vintran           #+#    #+#             */
-/*   Updated: 2022/03/28 15:20:15 by vintran          ###   ########.fr       */
+/*   Updated: 2022/03/30 15:08:43 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTORITERATOR_HPP
 # define VECTORITERATOR_HPP
+# include "iteratorTraits.hpp"
 
 namespace ft {
 
 template < class T >
-class vectorIterator : public ft::iterator<random_access_perator_tag, T> {
+class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 
 //================================TYPEDEF================================//
 
 	public :
 
-		typedef typename ft::iterator<random_access_perator_tag, T>::value_type		value_type;
-		typedef typename ft::iterator<random_access_perator_tag, T>::pointer			pointer;
-		typedef typename ft::iterator<random_access_perator_tag, T>::reference			reference;
-		typedef typename ft::iterator<random_access_perator_tag, T>::difference_type	difference_type;
-		typedef typename ft::iterator<random_access_perator_tag, T>::iterator_category	iterator_category;
+		typedef typename ft::iterator<random_access_iterator_tag, T>::value_type		value_type;
+		typedef typename ft::iterator<random_access_iterator_tag, T>::pointer			pointer;
+		typedef typename ft::iterator<random_access_iterator_tag, T>::reference			reference;
+		typedef typename ft::iterator<random_access_iterator_tag, T>::difference_type	difference_type;
+		typedef typename ft::iterator<random_access_iterator_tag, T>::iterator_category	iterator_category;
 
 
 //========================CONSTRUCTOR / DESTRUCTOR========================//
@@ -54,7 +55,7 @@ class vectorIterator : public ft::iterator<random_access_perator_tag, T> {
 
 			return (vectorIterator<const value_type>(this->_p));
 		};
-
+ 
 		vectorIterator &operator=(const vectorIterator& rhs) {
 
 			if (this == &rhs)
@@ -120,7 +121,7 @@ class vectorIterator : public ft::iterator<random_access_perator_tag, T> {
 
 			vectorIterator	tmp = (*this);
 
-			++(this->_p);										/////????????????????????????????????????
+			++(this->_p);
 			return (tmp);
 		}
 
@@ -150,14 +151,14 @@ class vectorIterator : public ft::iterator<random_access_perator_tag, T> {
 			return (rhs._p + n);
 		};
 
-		difference_type	operator+(vectorIterator const &lhs, vectorIterator const &rhs) {
+		difference_type	operator+(vectorIterator const &lhs, vectorIterator const &rhs) {//???
 
 			return (lhs._p + rhs._p);
 		};
 
 		vectorIterator			operator+=(difference_type rhs) {
 
-			return(vectorIterator(this->_p += rhs));
+			return (vectorIterator(this->_p += rhs));
 		}
 
 		vectorIterator	operator-(difference_type const & rhs) const {
@@ -170,18 +171,18 @@ class vectorIterator : public ft::iterator<random_access_perator_tag, T> {
 			return (rhs._p - n);
 		};
 
-		difference_type	operator-(vectorIterator const &lhs, vectorIterator const &rhs) {
+		difference_type	operator-(vectorIterator const &lhs, vectorIterator const &rhs) {//???
 
 			return (lhs._p - rhs._p);
 		};
 
 		vectorIterator			operator-=(difference_type const & rhs) {
 
-			return(vectorIterator(this->_p -= rhs));
+			return (vectorIterator(this->_p -= rhs));
 		}
 
 
-//===========================VALUES_OPERATORS==========================//
+//===========================VALUES_OPERATORS==========================//				????????????????????????
 
 		difference_type		operator+(vectorIterator b) {
 
