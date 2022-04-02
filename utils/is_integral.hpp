@@ -6,12 +6,12 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:15:17 by vintran           #+#    #+#             */
-/*   Updated: 2022/03/24 11:44:22 by vintran          ###   ########.fr       */
+/*   Updated: 2022/03/31 23:29:32 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IS_INTEGRAL_HPP
-# define IS_INTGRAL_HPP
+# define IS_INTEGRAL_HPP
 
 namespace ft {
 

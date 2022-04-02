@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 21:12:30 by vintran           #+#    #+#             */
-/*   Updated: 2022/03/30 15:08:43 by vintran          ###   ########.fr       */
+/*   Updated: 2022/03/31 02:22:40 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 //========================CONSTRUCTOR / DESTRUCTOR========================//
 
-		vectorIterator(void);
+		vectorIterator(void) : _element(NULL) {}
 
-		vectorIterator(pointer p) : _p(p){
+		vectorIterator(pointer element) : _element(element){
 
 		}
 
 		vectorIterator(vectorIterator const & src) {
 
-			this->_p = src._p;
+			this->_element = src._element;
 		}
 
 		virtual	~vectorIterator() {
@@ -53,55 +53,55 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 		operator	vectorIterator<const value_type>() const {				//?///????????????????????????/////???????????????////////????????????????///////////????????????????????????????
 
-			return (vectorIterator<const value_type>(this->_p));
+			return (vectorIterator<const value_type>(this->_element));
 		};
  
 		vectorIterator &operator=(const vectorIterator& rhs) {
 
 			if (this == &rhs)
 				return (*this);
-			this->_p = rhs._p;
+			this->_element = rhs._element;
 			return (*this);
 		}
 
-		bool	operator==(vectorIterator const & lhs, vectorIterator const & rhs) {
+		friend bool	operator==(vectorIterator const & lhs, vectorIterator const & rhs) {
 
-			if (lhs._p == rhs._p)
+			if (lhs._element == rhs._element)
 				return (true);
 			return (false);
 		}
 
-		bool	operator!=(vectorIterator const & lhs, vectorIterator const & rhs) {
+		friend bool	operator!=(vectorIterator const & lhs, vectorIterator const & rhs) {
 
-			if (lhs._p != rhs._p)
+			if (lhs._element != rhs._element)
 				return (true);
 			return (false);
 		}
 
-		bool	operator<(vectorIterator const & lhs, vectorIterator const & rhs) {
+		friend bool	operator<(vectorIterator const & lhs, vectorIterator const & rhs) {
 
-			if (lhs._p < rhs._p)
+			if (lhs._element < rhs._element)
 				return (true);
 			return (false);
 		}
 
-		bool	operator>(vectorIterator const & lhs, vectorIterator const & rhs) {
+		friend bool	operator>(vectorIterator const & lhs, vectorIterator const & rhs) {
 
-			if (lhs._p > rhs._p)
+			if (lhs._element > rhs._element)
 				return (true);
 			return (false);
 		}
 
-		bool	operator<=(vectorIterator const & lhs, vectorIterator const & rhs) {
+		friend bool	operator<=(vectorIterator const & lhs, vectorIterator const & rhs) {
 
-			if (lhs._p <= rhs._p)
+			if (lhs._element <= rhs._element)
 				return (true);
 			return (false);
 		}
 
-		bool	operator>=(vectorIterator const & lhs, vectorIterator const & rhs) {
+		friend bool	operator>=(vectorIterator const & lhs, vectorIterator const & rhs) {
 
-			if (lhs._p >= rhs._p)
+			if (lhs._element >= rhs._element)
 				return (true);
 			return (false);
 		}
@@ -112,7 +112,7 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 	// pre increase
 		vectorIterator&	operator++(void) {
 
-			++(this->_p);
+			++(this->_element);
 			return (*this);
 		}
 
@@ -121,14 +121,14 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 			vectorIterator	tmp = (*this);
 
-			++(this->_p);
+			++(this->_element);
 			return (tmp);
 		}
 
 	// pre decrease
 		vectorIterator&	operator--(void) {
 
-			this->_p--;
+			this->_element--;
 			return (*this);
 		}
 
@@ -137,48 +137,48 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 			vectorIterator	tmp = (*this);
 
-			--(this->_p);
+			--(this->_element);
 			return (tmp);
 		}
 
 		vectorIterator	operator+(difference_type const & rhs) const {
 
-			return (this->_p + rhs);
+			return (this->_element + rhs);
 		}
 
-		vectorIterator	operator+(difference_type n, vectorIterator const &rhs) {
+		friend vectorIterator	operator+(difference_type n, vectorIterator const &rhs) {
 
-			return (rhs._p + n);
+			return (rhs._element + n);
 		};
 
-		difference_type	operator+(vectorIterator const &lhs, vectorIterator const &rhs) {//???
+		friend difference_type	operator+(vectorIterator const &lhs, vectorIterator const &rhs) {//???
 
-			return (lhs._p + rhs._p);
+			return (lhs._element + rhs._element);
 		};
 
 		vectorIterator			operator+=(difference_type rhs) {
 
-			return (vectorIterator(this->_p += rhs));
+			return (vectorIterator(this->_element += rhs));
 		}
 
 		vectorIterator	operator-(difference_type const & rhs) const {
 
-			return (this->_p - rhs);
+			return (this->_element - rhs);
 		}
 
-		vectorIterator	operator-(difference_type n, vectorIterator const &rhs) {
+		friend vectorIterator	operator-(difference_type n, vectorIterator const &rhs) {
 
-			return (rhs._p - n);
+			return (rhs._element - n);
 		};
 
-		difference_type	operator-(vectorIterator const &lhs, vectorIterator const &rhs) {//???
+		friend difference_type	operator-(vectorIterator const &lhs, vectorIterator const &rhs) {//???
 
-			return (lhs._p - rhs._p);
+			return (lhs._element - rhs._element);
 		};
 
 		vectorIterator			operator-=(difference_type const & rhs) {
 
-			return (vectorIterator(this->_p -= rhs));
+			return (vectorIterator(this->_element -= rhs));
 		}
 
 
@@ -186,12 +186,12 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 		difference_type		operator+(vectorIterator b) {
 
-			return (this->_p + b._p);
+			return (this->_element + b._element);
 		}
 
 		difference_type		operator-(vectorIterator b) {
 
-			return (this->_p - b._p);
+			return (this->_element - b._element);
 		}
 
 
@@ -199,17 +199,17 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 		reference	operator*(void) const {
 
-			return (*(this->_p));
+			return (*(this->_element));
 		}
 
 		reference	operator[](difference_type value) const {
 
-			return (*(this->_p + value));
+			return (*(this->_element + value));
 		}
 
 		pointer		operator->(void) const {
 
-			return (this->_p);
+			return (this->_element);
 		}
 
 
@@ -217,7 +217,7 @@ class vectorIterator : public ft::iterator<random_access_iterator_tag, T> {
 
 	private:
 
-		pointer		_p;
+		pointer		_element;
 
 };
 
