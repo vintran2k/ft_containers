@@ -6,19 +6,18 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:04:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/02 02:52:52 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/05 19:52:36 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
+
 # include <memory>
 # include <iostream> // asuppr
-# include "utils/vectorIterator.hpp"
 # include "utils/reverseIterator.hpp"
 # include "utils/enable_if.hpp"
 # include "utils/is_integral.hpp"
-# include "utils/distance.hpp"
 # include "utils/equal.hpp"
 # include "utils/lexicographical_compare.hpp"
 
@@ -47,6 +46,7 @@ namespace ft {
 
 //=====================================CONSTRUCTORS=====================================//
 
+			// default constructor
 			explicit vector(const allocator_type& alloc = allocator_type()) {
 				
 				this->_alloc = alloc;
@@ -339,11 +339,10 @@ namespace ft {
 
 				difference_type			beginToPos = std::distance(this->begin(), position);
 				difference_type			prevSize = this->_size;
-				difference_type			newSize = n;
 				iterator				prevEnd;
 				iterator				end;
 
-				this->resize(this->_size + newSize);
+				this->resize(this->_size + n);
 
 				prevEnd = this->begin() + prevSize;
 				position = this->begin() + beginToPos;
@@ -607,3 +606,5 @@ namespace ft {
 };
 
 #endif
+//ft::vector	-->	13.57s user 26.23s system 15% cpu 4:09.67 total
+//std::vector	-->	15.35s user 26.66s system 16% cpu 4:11.66 total
