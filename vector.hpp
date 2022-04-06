@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:04:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/06 02:15:40 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/06 03:13:12 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ namespace ft {
 					this->_capacity = rhs.capacity();
 					_check_range(rhs.capacity());
 					_start = _alloc.allocate(rhs.capacity());
-					_capacity = rhs.capacity();
 					std::uninitialized_copy(rhs.begin(), rhs.end(), this->_start);
 				}
 				return (*this);
@@ -449,7 +448,7 @@ namespace ft {
 			}
 
 
-//==================================PRIVATE ATTRIBUTES==================================//
+//=================================PROTECTED ATTRIBUTES================================//
 
 		protected:
 			allocator_type	_alloc;
@@ -541,7 +540,7 @@ namespace ft {
 	};
 
 
-//===========================NON-MEMBER RELATIONAL OPERATORS===========================//
+//=============================NON-MEMBER RELATIONAL OPERATORS===========================//
 
 
 	template <class T, class Alloc>
