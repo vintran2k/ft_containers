@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:04:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/06 04:49:07 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/09 01:03:09 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,6 +451,7 @@ namespace ft {
 //=================================PROTECTED ATTRIBUTES================================//
 
 		protected:
+
 			allocator_type	_alloc;
 			size_type		_size;
 			size_type		_capacity;
@@ -458,6 +459,8 @@ namespace ft {
 
 
 //=====================================MY FUNCTIONS===================================//
+
+		private:
 
 			void	_dealloc() {
 			
