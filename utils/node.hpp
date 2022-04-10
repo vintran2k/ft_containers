@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 05:32:21 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/09 06:17:52 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/10 00:54:45 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ namespace ft {
 		node	*left;
 		node	*right;
 		node	*parent;
-		bool	nil;
 
-		node(T val, node *l, node *r, node *p, bool n) : value(val), left(l), right(r), parent(p), nil(n) {}
+		node(T val, node *l, node *r, node *p) : value(val), left(l), right(r), parent(p) {}
 	};
 }
 
