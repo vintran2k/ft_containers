@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:04:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/09 01:03:09 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/11 00:37:03 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,15 +497,15 @@ namespace ft {
 				_capacity = n;
 			}
 
-			void	_check_range(size_type n) {
+			void	_check_range(size_type n) const {
 
 				if (n > _alloc.max_size())
 					throw std::out_of_range("vector::_check_range");
 			}
 
-			void	_check_size(size_type n) {
+			void	_check_size(size_type n) const {
 
-				if (n + _size)
+				if (n > _size)
 					throw std::out_of_range("vector::_check_size");
 			}
 

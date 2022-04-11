@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 23:39:08 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/10 08:19:13 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/11 10:53:29 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ namespace ft {
 			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
 				public:
-					Compare comp;
-				protected:
+					bool	operator()(const value_type &x, const value_type &y) const { return comp(x.first, y.first); }
 					value_compare(Compare c) : comp(c) {}
-					bool operator()(const value_type &x, const value_type &y) const { return comp(x.first, y.first); }
+				protected:
+					Compare comp;
 			};
 			
 			typedef Alloc														allocator_type;
@@ -159,22 +159,24 @@ namespace ft {
 
 			iterator		end() {
 
-				//if (!this->_root)			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ a verif
-				//	_initTree();
-				if (this->_size == 0)
-					return (NULL);	// return (this->_root);
+				if (this->_size == 0)//			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ a verif
+					return (begin());
+				//if (this->_size == 0)
+				//	return (NULL);	// return (this->_root);
 
 				/*node_pointer	tmp = this->_root;
 				while (tmp && tmp != _last)
 					tmp = tmp->right;
 				return (tmp);*/
-				return (_last);
+				//std::cout << "classic end batar\n";
+				return (iterator(_last));
 			}
 
 			const_iterator	end() const {
 
+				//std::cout << "const end() batar\n";
 				if (this->_size == 0)
-					return (const_iterator(this->_root));
+					return (begin());
 
 				/*node_pointer	tmp = this->_root;
 				while (tmp && !tmp->last)
@@ -186,12 +188,15 @@ namespace ft {
 			reverse_iterator		rbegin() {
 
 				//if (this->_size > 0) // else    ~~useless ?
+				//if (_last->parent == _maximum(_root))
+				//	std::cout << "t la fdp\n";
 				return (reverse_iterator(end()--));
 			}
 
 			const_reverse_iterator	rbegin() const {
 				
 				//comme au dessus
+				//std::cout << "ou la ta grd mere\n";
 				return (const_reverse_iterator(end()--));
 			}
 
@@ -322,8 +327,11 @@ namespace ft {
 
 				node_pointer	res = _find_key(k, _root);
 
-				if (res)
+				if (res) {
+					//std::cout << "res != NULL" << std::endl;
 					return (iterator(res));
+				}
+			//	std::cout << "res == NULL --> return end()" << std::endl;
 				return (end());
 			}
 
@@ -684,6 +692,7 @@ namespace ft {
 					_clean_recursive(node->right);
 					_alloc.destroy(node);
 					_alloc.deallocate(node, 1);
+					//node = NULL; // ?
 				}
 			}
 

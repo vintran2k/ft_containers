@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 06:08:53 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/10 04:37:28 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/11 10:30:26 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,10 @@ namespace ft {
 
 				if (!this->_p)
 					return ;
+				//std::cout << "passage\n";
 				if (this->_p->left) {
 
+		       		//std::cout << "passage\n";
 					this->_p = this->_p->left;
 					while (this->_p->right)
 						this->_p = this->_p->right;
