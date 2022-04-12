@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 23:39:08 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/11 10:53:29 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/12 06:43:28 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ namespace ft {
 
 //=====================================================ITERATORS===================================================//
 
-			iterator		begin() {
+			iterator		begin() {	//minimum a tester
 				
 				if (this->_size == 0)
 					return (this->_root);
@@ -157,58 +157,22 @@ namespace ft {
 				return (const_iterator(tmp));
 			}
 
-			iterator		end() {
+			iterator				end() { return (iterator(_last)); }
 
-				if (this->_size == 0)//			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ a verif
+			const_iterator			end() const {
+
+				if (_size == 0)
 					return (begin());
-				//if (this->_size == 0)
-				//	return (NULL);	// return (this->_root);
-
-				/*node_pointer	tmp = this->_root;
-				while (tmp && tmp != _last)
-					tmp = tmp->right;
-				return (tmp);*/
-				//std::cout << "classic end batar\n";
-				return (iterator(_last));
-			}
-
-			const_iterator	end() const {
-
-				//std::cout << "const end() batar\n";
-				if (this->_size == 0)
-					return (begin());
-
-				/*node_pointer	tmp = this->_root;
-				while (tmp && !tmp->last)
-					tmp = tmp->right;*/
-				//return (const_iterator(tmp));
 				return (const_iterator(_last));
 			}
 
-			reverse_iterator		rbegin() {
+			reverse_iterator		rbegin() { return (reverse_iterator(end()--)); }
 
-				//if (this->_size > 0) // else    ~~useless ?
-				//if (_last->parent == _maximum(_root))
-				//	std::cout << "t la fdp\n";
-				return (reverse_iterator(end()--));
-			}
+			const_reverse_iterator	rbegin() const { return (const_reverse_iterator(end()--)); }
 
-			const_reverse_iterator	rbegin() const {
-				
-				//comme au dessus
-				//std::cout << "ou la ta grd mere\n";
-				return (const_reverse_iterator(end()--));
-			}
+			reverse_iterator		rend() { return (reverse_iterator(begin())); }
 
-			reverse_iterator		rend() {
-
-				return (reverse_iterator(begin()));
-			}
-
-			const_reverse_iterator	rend() const {
-
-				return (const_reverse_iterator(begin()));
-			}
+			const_reverse_iterator	rend() const { return (const_reverse_iterator(begin())); }
 
 
 //=====================================================CAPACITY====================================================//
@@ -579,61 +543,6 @@ namespace ft {
 				return (_insert_node(val, _root));
 			}
 
-			/*bool	_insert_node(const value_type &val, node_pointer pos) {
-
-				if (!this->_root) {// tester sans
-
-					this->_root = _create_node(val);
-					_last->parent = this->_root;
-					this->_root->right = _last;
-					_size++;
-					return (true);
-				}
-				if (this->_root == _last) {		//????? dans quel cas ?
-
-					node_pointer	newRoot = _create_node(val);
-					this->_root->parent = newRoot;
-					newRoot->right = this->_root;
-					this->_root = newRoot;
-					_size++;
-					return (true);
-				}
-				node_pointer y = NULL;//
-				node_pointer x;
-				if (pos != NULL)// && pos != _last)
-					x = pos;
-				else
-					x = _root;
-				while (x != NULL && x != _last) // != _last a sup ?
-				{
-					y = x;
-					if (_is_equal(val, x->value))
-						return false;
-					else if (_comp(val.first, x->value.first))
-						x = x->left;
-					else
-						x = x->right;
-				}
-				node_pointer new_node = _create_node(val);
-				new_node->parent = y;
-				if (y == NULL)
-					_root = new_node;
-				else if (_comp(val.first, y->value.first))
-					y->left = new_node;
-				else
-					y->right = new_node;
-				new_node->left = NULL;
-				new_node->right = NULL;
-				_size++;
-				node_pointer	max = _maximum(_root);
-				if (max) {
-
-					max->right = _last;
-					_last->parent = max;
-				}
-				return true;
-			}*/
-
 			void	_transplant(node_pointer a, node_pointer b) {
 				
 				if (!a->parent)
@@ -650,8 +559,6 @@ namespace ft {
 
 				node_pointer	y;
 
-				//if (node == _last)		???????????
-					//return
 				y = node;
 				if (!node->left)
 					_transplant(node, node->right);
@@ -690,6 +597,8 @@ namespace ft {
 
 					_clean_recursive(node->left);
 					_clean_recursive(node->right);
+					if (node->right == _last)
+						_last->parent = NULL;
 					_alloc.destroy(node);
 					_alloc.deallocate(node, 1);
 					//node = NULL; // ?
