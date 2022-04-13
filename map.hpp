@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 23:39:08 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/12 06:43:28 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/13 05:42:26 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <functional>
 # include <memory>
-# include <iostream> // asuppr
+# include <iostream>
 # include <sstream>
 # include "utils/pair.hpp"
 # include "utils/node.hpp"
@@ -94,8 +94,7 @@ namespace ft {
 			// range constructor
 			template <class InputIterator>
 			map(InputIterator first, InputIterator last,
-				const key_compare & comp = key_compare(), const allocator_type & alloc = allocator_type()/*,
-					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL*/) ///////////////////// enable_if ???????????????
+				const key_compare & comp = key_compare(), const allocator_type & alloc = allocator_type())
 					: _comp(comp), _alloc(alloc), _size(0), _root(NULL) {
 
 				_last = _create_node(value_type());
@@ -127,7 +126,8 @@ namespace ft {
 				if (this != &rhs) {
 
 					clear();
-					insert(rhs.begin(), rhs.end());
+					if (rhs._size)
+						insert(rhs.begin(), rhs.end());
 				}
 				return (*this);
 			}
@@ -135,36 +135,23 @@ namespace ft {
 
 //=====================================================ITERATORS===================================================//
 
-			iterator		begin() {	//minimum a tester
+			iterator		begin() {
 				
 				if (this->_size == 0)
-					return (this->_root);
-
-				node_pointer	tmp = this->_root;
-				while (tmp && tmp->left)
-					tmp = tmp->left;
-				return (tmp);
+					return (iterator(_last));
+				return (_minimum(_root));
 			}
 
 			const_iterator	begin() const {
 
 				if (this->_size == 0)
-					return (const_iterator(this->_root));
-
-				node_pointer	tmp = this->_root;
-				while (tmp && tmp->left)
-					tmp = tmp->left;
-				return (const_iterator(tmp));
+					return (const_iterator(_last));
+				return (_minimum(_root));
 			}
 
 			iterator				end() { return (iterator(_last)); }
 
-			const_iterator			end() const {
-
-				if (_size == 0)
-					return (begin());
-				return (const_iterator(_last));
-			}
+			const_iterator			end() const { return (const_iterator(_last)); }
 
 			reverse_iterator		rbegin() { return (reverse_iterator(end()--)); }
 
@@ -202,7 +189,6 @@ namespace ft {
 			// insert single element
 			ft::pair<iterator, bool>	insert(value_type const & val) {
 				
-				//bool	is_insert = _insert_node(val, _root);// _insert_node_root(val);
 				bool	is_insert = _insert_node_root(val);
 
 				return (ft::pair<iterator, bool>(_find_key(val.first, this->_root), is_insert));
@@ -213,7 +199,6 @@ namespace ft {
 
 				(void)position;
 				_insert_node_root(val);
-				//_insert_node(val, _root);
 				return (iterator(_find_key(val.first, this->_root)));
 			}
 
@@ -228,12 +213,14 @@ namespace ft {
 				}
 			}
 
+			// erase position
 			void	erase(iterator position) {
 
 				if (is_in_tree(position) == true)
 					erase(position->first);
 			}
 
+			// erase key
 			size_type	erase(const key_type & k) {
 
 				node_pointer	to_delete = _find_key(k, _root);
@@ -246,6 +233,7 @@ namespace ft {
 				return (0);
 			}
 
+			// erase range
 			void	erase(iterator first, iterator last) {
 
 				if (is_in_tree(first) == true && (is_in_tree(last) == true || last == iterator(_last))) {
@@ -274,15 +262,9 @@ namespace ft {
 
 //====================================================OBSERVERS====================================================//
 
-			key_compare		key_comp() const {
+			key_compare		key_comp() const { return (this->_comp); }
 
-				return (this->_comp);
-			}
-
-			value_compare	value_comp() const {
-
-				return (value_compare(key_compare()));
-			}
+			value_compare	value_comp() const { return (value_compare(key_compare())); }
 
 
 //====================================================OPERATIONS===================================================//
@@ -291,11 +273,8 @@ namespace ft {
 
 				node_pointer	res = _find_key(k, _root);
 
-				if (res) {
-					//std::cout << "res != NULL" << std::endl;
+				if (res)
 					return (iterator(res));
-				}
-			//	std::cout << "res == NULL --> return end()" << std::endl;
 				return (end());
 			}
 
@@ -386,10 +365,7 @@ namespace ft {
 
 //====================================================ALLOCATOR====================================================//
 
-			allocator_type	get_allocator() const {
-
-				return (this->_alloc);
-			}
+			allocator_type	get_allocator() const { return (this->_alloc); }
 
 
 //===================================================MY FUNCTIONS==================================================//
@@ -413,7 +389,7 @@ namespace ft {
 				buffer << prefix << (is_tail != 0 ? "└── " : "┌── ");
 				buffer << "\033[31m";
 				if (node)
-					buffer << node->value.first << "\033[0m" << std::endl;
+					buffer << node->value.second << "\033[0m" << std::endl;
 				if (node->left)
 					this->_recursive_print(node->left, buffer, true, std::string(prefix).append(is_tail != 0 ? "    " : "│   "));
 			}
@@ -476,7 +452,7 @@ namespace ft {
 				return (node);
 			}
 
-			bool	_insert_node(const value_type &val, node_pointer current) {	//proto a alleger ?
+			bool	_insert_node(const value_type &val, node_pointer current) {
 
 				if (!current)
 					return (false);
@@ -531,7 +507,7 @@ namespace ft {
 					_size++;
 					return (true);
 				}
-				if (this->_root == _last) {		//????? dans quel cas ?
+				if (this->_root == _last) { // dans quel cas ?
 
 					node_pointer	newRoot = _create_node(val);
 					this->_root->parent = newRoot;
@@ -562,7 +538,7 @@ namespace ft {
 				y = node;
 				if (!node->left)
 					_transplant(node, node->right);
-				else if (!node->right)  //? || node->right == _last
+				else if (!node->right)
 					_transplant(node, node->left);
 				else {
 
@@ -601,7 +577,6 @@ namespace ft {
 						_last->parent = NULL;
 					_alloc.destroy(node);
 					_alloc.deallocate(node, 1);
-					//node = NULL; // ?
 				}
 			}
 
@@ -653,5 +628,3 @@ namespace ft {
 }
 
 #endif
-//std	==>		8:55.98		8:39.93
-//ft	==>		9:22.97		9:30.06

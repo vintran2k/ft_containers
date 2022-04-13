@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 06:08:53 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/11 10:30:26 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/13 05:47:04 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ namespace ft {
 				return (&(operator*()));
 			}
 
-			node_pointer	get_node() const {		// sans const ?
+			node_pointer	getNode() const {
 
 				return (this->_p);
 			}
@@ -97,12 +97,12 @@ namespace ft {
 			template <typename it2>
 			bool		operator==(const mapIterator<it2, node_pointer> &rhs) const {
 
-				return (this->_p == rhs.get_node());
+				return (this->_p == rhs.getNode());
 			}
 
 			template <typename it2>
 			bool		operator!=(const mapIterator<it2, node_pointer> &rhs) const {
-				return (this->_p != rhs.get_node());
+				return (this->_p != rhs.getNode());
 			}
 
 		protected:
@@ -132,10 +132,8 @@ namespace ft {
 
 				if (!this->_p)
 					return ;
-				//std::cout << "passage\n";
 				if (this->_p->left) {
 
-		       		//std::cout << "passage\n";
 					this->_p = this->_p->left;
 					while (this->_p->right)
 						this->_p = this->_p->right;
@@ -155,7 +153,7 @@ namespace ft {
 
 	template <typename _T, typename _node_pointer>
     std::ostream    &operator<<(std::ostream &o, ft::mapIterator<_T, _node_pointer> const &rhs) {
-        o << *rhs.get_node();
+        o << rhs.getNode();
         return (o);
     }
 
