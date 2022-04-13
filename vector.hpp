@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:04:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/11 00:37:03 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/13 06:59:47 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,45 +137,21 @@ namespace ft {
 
 //====================================ITERATORS====================================//
 
-			iterator	begin() {
+			iterator	begin() { return (this->_start); }
 
-				return (this->_start);
-			}
+			const_iterator	begin() const { return (this->_start); }
 
-			const_iterator	begin() const {
+			iterator	end() { return (this->_start + this->_size); }
 
-				return (this->_start);
-			}
+			const_iterator	end() const { return (this->_start + this->_size); }
 
-			iterator	end() {
+			reverse_iterator	rbegin() { return (reverse_iterator(end())); }
 
-				return (this->_start + this->_size);
-			}
+			const_reverse_iterator	rbegin() const { return (const_reverse_iterator(end())); }
 
-			const_iterator	end() const {
+			reverse_iterator	rend() { return (reverse_iterator(begin())); }
 
-				return (this->_start + this->_size);
-			}
-
-			reverse_iterator	rbegin() {
-
-				return (reverse_iterator(end()));
-			}
-
-			const_reverse_iterator	rbegin() const {
-
-				return (const_reverse_iterator(end()));
-			}
-
-			reverse_iterator	rend() {
-
-				return (reverse_iterator(begin()));
-			}
-
-			const_reverse_iterator	rend() const {
-
-				return (const_reverse_iterator(begin()));
-			}
+			const_reverse_iterator	rend() const { return (const_reverse_iterator(begin())); }
 
 
 //=====================================CAPACITY====================================//
@@ -212,10 +188,7 @@ namespace ft {
 					this->_realloc_fill(n, val);
 			}
 
-			size_type	capacity() const {
-
-				return (this->_capacity);
-			}
+			size_type	capacity() const { return (this->_capacity); }
 
 			bool	empty() const {
 
@@ -237,15 +210,9 @@ namespace ft {
 
 //====================================ELEMENT ACCESS====================================//
 
-			reference	operator[](size_type n) {
+			reference	operator[](size_type n) { return (this->_start[n]); }
 
-				return (this->_start[n]);
-			}
-
-			const_reference	operator[](size_type n) const {
-
-				return (this->_start[n]);
-			}
+			const_reference	operator[](size_type n) const { return (this->_start[n]); }
 
 			reference	at(size_type n) {
 
@@ -259,25 +226,13 @@ namespace ft {
 				return (this->_start[n]);
 			}
 
-			reference	front() {
+			reference	front() { return (*begin()); }
 
-				return (*begin());
-			}
+			const_reference		front() const { return (*begin()); }
 
-			const_reference		front() const {
+			reference	back() { return (*(end() - 1)); }
 
-				return (*begin());
-			}
-
-			reference	back() {
-
-				return (*(end() - 1));
-			}
-
-			const_reference		back() const {
-
-				return (*(end() - 1));
-			}
+			const_reference		back() const { return (*(end() - 1)); }
 
 
 //======================================MODIFIERS======================================//
@@ -442,10 +397,7 @@ namespace ft {
 
 //======================================ALLOCATOR======================================//
 
-			allocator_type	get_allocator() const {
-
-				return (this->_alloc);
-			}
+			allocator_type	get_allocator() const { return (this->_alloc); }
 
 
 //=================================PROTECTED ATTRIBUTES================================//
@@ -565,10 +517,8 @@ namespace ft {
 	template <class T, class Alloc>
 	bool	operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
 
-		if (lhs != rhs) {
-
+		if (lhs != rhs)
 			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
-		}
 		return (false);
 	}
 
@@ -608,5 +558,3 @@ namespace ft {
 };
 
 #endif
-//ft::vector	-->	13.57s user 26.23s system 15% cpu 4:09.67 total
-//std::vector	-->	15.35s user 26.66s system 16% cpu 4:11.66 total
