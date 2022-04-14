@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:42:56 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/06 03:47:12 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/13 08:04:15 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,22 @@ namespace ft {
 
 //=======================================CONSTUCTOR=======================================//
 
-			explicit stack(container_type const &ctnr = container_type()) : _ctnr(ctnr) {}
+			explicit stack(container_type const &ctnr = container_type()) : c(ctnr) {}
 
 
 //====================================MEMBER FUNCTIONS====================================//
 
-			bool				empty() const { return _ctnr.empty(); }
+			bool				empty() const { return c.empty(); }
 
-			size_type			size() const { return _ctnr.size(); }
+			size_type			size() const { return c.size(); }
 
-			value_type			&top() { return _ctnr.back(); }
+			value_type			&top() { return c.back(); }
 
-			const value_type	&top() const { return _ctnr.back(); }
+			const value_type	&top() const { return c.back(); }
 
-			void				push(value_type const &val) { _ctnr.push_back(val); }
+			void				push(value_type const &val) { c.push_back(val); }
 
-			void				pop() { _ctnr.pop_back(); }
+			void				pop() { c.pop_back(); }
 
 
 			template <typename _T, typename _Container>
@@ -60,7 +60,7 @@ namespace ft {
 
 	protected:
 
-			container_type		_ctnr;
+			container_type		c;
 
 	};
 
@@ -70,13 +70,13 @@ namespace ft {
 	template <typename T, typename Container>
 	bool	operator==(stack<T, Container> const &lhs, stack<T, Container> const &rhs)
 	{
-		return (lhs._ctnr == rhs._ctnr);
+		return (lhs.c == rhs.c);
 	}
 	
 	template <typename T, typename Container>
 	bool	operator<(stack<T, Container> const &lhs, stack<T, Container> const &rhs)
 	{
-		return (lhs._ctnr < rhs._ctnr);
+		return (lhs.c < rhs.c);
 	}
 	
 	template <typename T, typename Container>
