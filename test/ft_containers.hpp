@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ft_containers.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 13:17:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/03/24 13:23:39 by vintran          ###   ########.fr       */
+/*   Created: 2022/04/15 01:43:21 by vintran           #+#    #+#             */
+/*   Updated: 2022/04/15 02:37:12 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
+#ifndef FT_CONTAINERS_HPP
 
-int main()
-{
-    ft::vector<int> v;
-    return 0;
-}
+# include <iostream>
+# include <limits>
+# include <iostream>
+# include <cstring>
+# include <cstdlib>
+
+void	ft_main_vector(void);
+void	ft_main_stack(void);
+void	ft_main_map(void);
+void	std_main_vector(void);
+void	std_main_stack(void);
+void	std_main_map(void);
+
+#endif
