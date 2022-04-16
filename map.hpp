@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 23:39:08 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/13 05:42:26 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/16 00:13:45 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,7 +507,7 @@ namespace ft {
 					_size++;
 					return (true);
 				}
-				if (this->_root == _last) { // dans quel cas ?
+				if (this->_root == _last) {
 
 					node_pointer	newRoot = _create_node(val);
 					this->_root->parent = newRoot;

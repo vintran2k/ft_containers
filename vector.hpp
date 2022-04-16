@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:04:50 by vintran           #+#    #+#             */
-/*   Updated: 2022/04/13 06:59:47 by vintran          ###   ########.fr       */
+/*   Updated: 2022/04/16 00:13:56 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define VECTOR_HPP
 
 # include <memory>
-# include <iostream> // asuppr
+# include <iostream>
 # include "utils/reverseIterator.hpp"
 # include "utils/enable_if.hpp"
 # include "utils/is_integral.hpp"
